@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 
 import BlogList from '../BlogList'
+import { blogManager } from '../../higherOrderComponents'
 
 const mapStateToProps = (state, ownProps) => {
   const { isAdmin } = ownProps
@@ -15,19 +17,20 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const propTypes = {
+  isAdmin: PropTypes.bool,
   isFetching: PropTypes.bool,
-  onClick: PropTypes.func.isRequired,
   posts: PropTypes.array,
 }
 
 const defaultProps = {
+  isAdmin: false,
   isFetching: true,
   posts: undefined,
 }
 
 class List extends Component {
   render() {
-    const { onClick: handleClick, posts, isFetching } = this.props
+    const { isAdmin, posts, isFetching } = this.props
 
     if (isFetching) {
       return (
@@ -36,11 +39,11 @@ class List extends Component {
         </div>
       )
     }
-
-    return <BlogList onClick={handleClick} posts={posts} />
+    return <BlogList isAdmin={isAdmin} posts={posts} />
   }
 }
 
 List.propTypes = propTypes
 List.defaultProps = defaultProps
-export default connect(mapStateToProps)(List)
+
+export default compose(blogManager, connect(mapStateToProps))(List)

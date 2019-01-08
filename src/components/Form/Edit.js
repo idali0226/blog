@@ -1,23 +1,34 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { compose } from 'redux'
+import { withRouter } from 'react-router-dom'
 
 import BaseForm from './BaseForm'
+import { blogManager } from '../../higherOrderComponents'
+import { getPostBySlug } from '../../selectors'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  const { isAdmin, match: { params: { slug } } } = ownProps
   return {
-    post: state.blogs.post,
+    post: getPostBySlug(state, isAdmin, slug),
   }
 }
 
 const propTypes = {
+  isAdmin: PropTypes.bool,
   onSave: PropTypes.func.isRequired,
   post: PropTypes.shape({
     author: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
+}
+
+const defaultProps = {
+  isAdmin: true,
+  post: {},
 }
 
 class Edit extends Component {
@@ -40,4 +51,5 @@ class Edit extends Component {
 }
 
 Edit.propTypes = propTypes
-export default connect(mapStateToProps)(Edit)
+Edit.defaultProps = defaultProps
+export default compose(blogManager, withRouter, connect(mapStateToProps))(Edit)

@@ -1,6 +1,7 @@
 import React from 'react'
-import { BlogManager } from '../../../components/'
 
-const Edit = () => <BlogManager header="Edit post" isAdmin type="edit" />
+import { Edit } from '../../../components/'
 
-export default Edit
+const EditView = () => <Edit header="Edit post" isAdmin />
+
+export default EditView

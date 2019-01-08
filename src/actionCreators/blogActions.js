@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import * as actionTypes from './actionTypes'
+import * as actionTypes from '../actionTypes'
 import { API } from '../constants/appConstants'
 
 export const loadPosts = () => {
@@ -205,17 +205,4 @@ export const updatePost = ({
       }
     )
   }
-}
-
-export const togglePost = (id, isAdmin) => {
-  if (isAdmin) {
-    return {
-      id,
-      type: actionTypes.TOGGLE_POST,
-    }
-  }
-  return {
-    id,
-    type: actionTypes.TOGGLE_PUBLISH_POST,
-  }
-}
+} 

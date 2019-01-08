@@ -11,14 +11,16 @@ const propTypes = {
   match: PropTypes.object.isRequired,
 }
 
-const Admin = ({ match }) => (
-  <Switch>
-    <Route component={List} exact path={`${match.path}/`} />
-    <Route component={Post} exact path={`${match.path}/list/:slug`} />
-    <Route component={Create} exact path={`${match.path}/create`} />
-    <Route component={Edit} exact path={`${match.path}/list/:id/edit`} />
-  </Switch>
-)
+const Admin = ({ match }) => {
+  return (
+    <Switch>
+      <Route component={List} exact path={`${match.path}/`} />
+      <Route component={Post} exact path={`${match.path}/list/:slug`} />
+      <Route component={Create} exact path={`${match.path}/create`} />
+      <Route component={Edit} exact path={`${match.path}/list/:slug/edit`} />
+    </Switch>
+  )
+}
 
 Admin.propTypes = propTypes
 

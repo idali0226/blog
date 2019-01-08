@@ -1,21 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
+import { push } from 'react-router-redux'
 
 import { LoginForm } from '../Form'
-import Templete from '../Templete'
+import Template from '../Template'
 
-import { login } from '../../actions/authActions'
+import { login } from '../../actionCreators/authActions'
 
 const mapDispatchToProps = {
   login,
+  push,
 }
 
 const propTypes = {
   header: PropTypes.string,
-  history: PropTypes.object.isRequired,
   login: PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired,
 }
 
 const defaultProps = {
@@ -31,20 +32,20 @@ class Login extends Component {
 
   handleLogin(value) {
     this.props.login(value)
-    this.props.history.push('/admin')
+    this.props.push('/admin')
   }
 
   render() {
     const { header, ...rest } = this.props
 
     return (
-      <Templete authenticated={false} header={header} {...rest}>
+      <Template authenticated={false} header={header} {...rest}>
         <LoginForm onLogin={this.handleLogin} />
-      </Templete>
+      </Template>
     )
   }
 }
 
 Login.propTypes = propTypes
 Login.defaultProps = defaultProps
-export default withRouter(connect(null, mapDispatchToProps)(Login))
+export default connect(null, mapDispatchToProps)(Login)

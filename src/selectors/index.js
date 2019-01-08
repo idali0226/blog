@@ -1,14 +1,10 @@
 import { createSelector } from 'reselect'
 
-const getPosts = (isAdmin, state) => {
+const getPosts = (state, isAdmin) => {
   if (isAdmin) {
     return state.blogs.posts || []
   }
   return state.blogs.publishedPosts || []
-}
-
-const getCurrentPost = (isAdmin, state) => {
-  return state.blogs.post || {}
 }
 
 export const getTotalNumberOfPost = createSelector([getPosts], posts => {
@@ -26,23 +22,20 @@ export const getMinPostId = createSelector(
   }
 )
 
-export const getCurrentPostIndex = createSelector(
-  [getPosts, getCurrentPost],
-  (posts, post) => {
-    return posts.findIndex(p => p.id === post.id)
-  }
-)
+export const getNextPost = (state, isAdmin, slug) => {
+  const posts = getPosts(state, isAdmin)
+  const index = posts.findIndex(p => p.slug === slug)
+  return posts[index + 1]
+}
 
-export const getPreviousPost = createSelector(
-  [getPosts, getCurrentPostIndex],
-  (posts, index) => {
-    return posts[index - 1] || {}
-  }
-)
+export const getPreviousPost = (state, isAdmin, slug) => {
+  const posts = getPosts(state, isAdmin)
+  const index = posts.findIndex(p => p.slug === slug)
+  return posts[index - 1]
+}
 
-export const getNextPost = createSelector(
-  [getPosts, getCurrentPostIndex],
-  (posts, index) => {
-    return posts[index + 1] || {}
-  }
-)
+export const getPostBySlug = (state, isAdmin, slug) => {
+  const posts = getPosts(state, isAdmin)
+  const index = posts.findIndex(p => p.slug === slug)
+  return posts[index]
+}

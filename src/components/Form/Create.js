@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import BaseForm from './BaseForm'
+import { blogManager } from '../../higherOrderComponents'
 
 const propTypes = {
   onSave: PropTypes.func.isRequired,
@@ -19,4 +20,4 @@ class Create extends Component {
 }
 
 Create.propTypes = propTypes
-export default Create
+export default blogManager(Create)

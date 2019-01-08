@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { Button, Grid, Header, Segment } from 'semantic-ui-react'
 
 const propTypes = {
-  onClick: PropTypes.func,
-  onEdit: PropTypes.func,
+  enableEdit: PropTypes.bool,
   post: PropTypes.shape({
     author: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
@@ -14,39 +14,26 @@ const propTypes = {
 }
 
 const defaultProps = {
-  onClick: undefined,
-  onEdit: undefined,
+  enableEdit: false,
 }
 
 class BlogItem extends Component {
-  constructor(props) {
-    super(props)
-
-    this.handleClick = this.handleClick.bind(this)
-  }
-
-  handleClick() {
-    const { onClick } = this.props
-    if (onClick) {
-      onClick(this.props.post)
-    }
-  }
-
   render() {
-    const { onEdit: handleEdit, post } = this.props
+    const { enableEdit, post } = this.props
     return (
-      <Segment
-        color={post.isPublish ? 'green' : 'red'}
-        onClick={this.handleClick}
-        raised
-      >
+      <Segment color={post.isPublish ? 'green' : 'red'} raised>
         <Grid>
           <Grid.Column width={12}>
             <Header as="h1">{post.title}</Header>
           </Grid.Column>
           <Grid.Column width={4}>
-            {handleEdit ? (
-              <Button content="Edit" onClick={handleEdit} primary />
+            {enableEdit ? (
+              <Button
+                as={Link}
+                content="Edit"
+                primary
+                to={`/admin/list/${post.slug}/edit`}
+              />
             ) : null}
           </Grid.Column>
           <Grid.Column width={16}>

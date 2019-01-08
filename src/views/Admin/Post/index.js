@@ -1,8 +1,8 @@
 import React from 'react'
 
-import { BlogManager } from '../../../components/'
+import { Post } from '../../../components/'
 
-const Post = () => {
-  return <BlogManager header="Post" isAdmin type="post" />
+const PostView = () => {
+  return <Post header="Post" isAdmin />
 }
-export default Post
+export default PostView

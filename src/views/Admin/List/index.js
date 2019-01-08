@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { BlogManager } from '../../../components/'
+import { List } from '../../../components/'
 
-class List extends Component {
+class ListView extends Component {
   render() {
-    return <BlogManager header="List posts" isAdmin type="list" />
+    return <List header="List posts" isAdmin />
   }
 }
 
-export default List
+export default ListView

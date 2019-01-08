@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { BlogManager } from '../../../components/'
+import { Create } from '../../../components/'
 
-class Create extends Component {
+class CreateView extends Component {
   render() {
-    return <BlogManager header="Create post" isAdmin type="create" />
+    return <Create header="Create post" isAdmin />
   }
 }
 
-export default Create
+export default CreateView

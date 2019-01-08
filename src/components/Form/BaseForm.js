@@ -54,7 +54,7 @@ class BaseForm extends Component {
               label="Content"
               name="content"
               placeholder="Content"
-              rows="3"
+              rows={3}
               style={{ width: '100%' }}
               type="text"
             />
@@ -84,6 +84,4 @@ class BaseForm extends Component {
 
 BaseForm.propTypes = propTypes
 
-export default reduxForm({
-  // form: 'PostForm',
-})(BaseForm)
+export default reduxForm({})(BaseForm)

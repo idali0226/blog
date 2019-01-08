@@ -1,5 +1,5 @@
 import 'whatwg-fetch'
-import * as actionTypes from './actionTypes'
+import * as actionTypes from '../actionTypes'
 
 export const login = ({ username }) => {
   return {

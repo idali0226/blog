@@ -1,5 +1,6 @@
 import { Login } from './Authentication'
-import BlogManager from './BlogManager'
-import { Create } from './Form'
+import List from './List'
+import Post from './Post'
+import { Create, Edit } from './Form'
 
-export { BlogManager, Create, Login }
+export { Create, Edit, List, Login, Post }

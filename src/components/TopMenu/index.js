@@ -1,20 +1,22 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { push } from 'react-router-redux'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import { Dropdown, Menu } from 'semantic-ui-react'
 
-import { logout } from '../../actions/authActions'
+import { logout } from '../../actionCreators/authActions'
 
 const mapDispatchToProps = {
   logout,
+  push,
 }
 
 const propTypes = {
   authenticated: PropTypes.bool.isRequired,
-  history: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired,
+  push: PropTypes.func.isRequired,
 }
 
 class TopMenu extends Component {
@@ -26,7 +28,7 @@ class TopMenu extends Component {
   handleLogout(event) {
     event.preventDefault()
     this.props.logout()
-    this.props.history.push('/')
+    this.props.push('/')
   }
 
   render() {

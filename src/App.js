@@ -14,11 +14,10 @@ import Admin from './views/Admin'
 import Public from './views/Public'
 
 const store = configureStore()
-const history = browserHistory()
 
 ReactDOM.render(
   <Provider store={store}>
-    <ConnectedRouter history={history}>
+    <ConnectedRouter history={browserHistory}>
       <Switch>
         <PrivateRoute component={Admin} path="/admin" />
         <Route component={Public} path="/" />

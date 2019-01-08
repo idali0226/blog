@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import { Input, Label } from 'semantic-ui-react'
+import { Input } from 'semantic-ui-react'
 
 const propTypes = {
   autoComplete: PropTypes.string,

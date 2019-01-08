@@ -13,7 +13,7 @@ const defaultProps = {
   header: undefined,
 }
 
-class Templete extends Component {
+class Template extends Component {
   render() {
     const { children, header, ...rest } = this.props
     return (
@@ -30,7 +30,7 @@ class Templete extends Component {
   }
 }
 
-Templete.propTypes = propTypes
-Templete.defaultProps = defaultProps
+Template.propTypes = propTypes
+Template.defaultProps = defaultProps
 
-export default Templete
+export default Template
