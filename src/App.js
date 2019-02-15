@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import { Route, Switch } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'react-router-redux'
@@ -15,14 +14,17 @@ import Public from './views/Public'
 
 const store = configureStore()
 
-ReactDOM.render(
-  <Provider store={store}>
-    <ConnectedRouter history={browserHistory}>
-      <Switch>
-        <PrivateRoute component={Admin} path="/admin" />
-        <Route component={Public} path="/" />
-      </Switch>
-    </ConnectedRouter>
-  </Provider>,
-  document.getElementById('root')
-)
+const App = () => {
+  return (
+    <Provider store={store}>
+      <ConnectedRouter history={browserHistory}>
+        <Switch>
+          <PrivateRoute component={Admin} path="/admin" />
+          <Route component={Public} path="/" />
+        </Switch>
+      </ConnectedRouter>
+    </Provider>
+  )
+}
+
+export default App
