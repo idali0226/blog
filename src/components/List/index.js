@@ -4,7 +4,7 @@ import { compose } from 'redux'
 import PropTypes from 'prop-types'
 
 import BlogList from '../BlogList'
-import { blogManager } from '../../higherOrderComponents'
+import { createHandleSearch } from '../../higherOrderComponents'
 
 const mapStateToProps = (state, ownProps) => {
   const { isAdmin } = ownProps
@@ -46,4 +46,4 @@ class List extends Component {
 List.propTypes = propTypes
 List.defaultProps = defaultProps
 
-export default compose(blogManager, connect(mapStateToProps))(List)
+export default compose(createHandleSearch, connect(mapStateToProps))(List)

@@ -1,17 +1,16 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'redux'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { push } from 'react-router-redux'
 
-import Template from '../../components/Template'
 import {
-  createPost,
-  loadPosts,
   loadPostsByUser,
   loadPublishedPosts,
-  updatePost,
 } from '../../actionCreators/blogActions'
+
+import Template from '../../components/Template'
 
 const mapStateToProps = state => {
   return {
@@ -21,44 +20,29 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  createPost,
-  loadPosts,
   loadPostsByUser,
   loadPublishedPosts,
   push,
-  updatePost,
 }
 
 const propTypes = {
   authenticated: PropTypes.bool.isRequired,
-  createPost: PropTypes.func.isRequired,
   header: PropTypes.string,
-  history: PropTypes.object.isRequired,
-  isAdmin: PropTypes.bool,
-  loadPosts: PropTypes.func.isRequired,
   loadPostsByUser: PropTypes.func.isRequired,
   loadPublishedPosts: PropTypes.func.isRequired,
   push: PropTypes.func.isRequired,
-  type: PropTypes.string,
-  updatePost: PropTypes.func.isRequired,
   user: PropTypes.string,
+  values: PropTypes.object,
 }
 
 const defaultProps = {
   header: undefined,
-  isAdmin: false,
-  type: undefined,
   user: undefined,
+  values: undefined,
 }
 
-export default function blogManagerHOC(WrappedComponent) {
-  class BlogManager extends Component {
-    constructor(props) {
-      super(props)
-
-      this.handleSave = this.handleSave.bind(this)
-    }
-
+const createHandleSearch = ComposedComponent => {
+  class SearchHandler extends Component {
     componentDidMount() {
       const { authenticated, user } = this.props
       if (authenticated) {
@@ -67,29 +51,21 @@ export default function blogManagerHOC(WrappedComponent) {
       this.props.loadPublishedPosts()
     }
 
-    handleSave(value) {
-      const { user } = this.props
-
-      if (value.id) {
-        this.props.updatePost(value)
-      } else {
-        this.props.createPost(value, user)
-      }
-
-      this.props.push('/admin')
-    }
-
     render() {
       const { header, ...rest } = this.props
       return (
         <Template header={header} {...rest}>
-          <WrappedComponent {...rest} onSave={this.handleSave} />
+          <ComposedComponent {...this.props} />
         </Template>
       )
     }
   }
 
-  BlogManager.propTypes = propTypes
-  BlogManager.defaultProps = defaultProps
-  return withRouter(connect(mapStateToProps, mapDispatchToProps)(BlogManager))
+  SearchHandler.propTypes = propTypes
+  SearchHandler.defaultProps = defaultProps
+
+  return compose(withRouter, connect(mapStateToProps, mapDispatchToProps))(
+    SearchHandler
+  )
 }
+export default createHandleSearch

@@ -2,22 +2,23 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
 import BaseForm from './BaseForm'
-import { blogManager } from '../../higherOrderComponents'
+import { createHandleCreateSubmit } from '../../higherOrderComponents'
 
 const propTypes = {
-  onSave: PropTypes.func.isRequired,
+  formName: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 }
 
 class Create extends Component {
   render() {
-    const { onSave: handleSave } = this.props
+    const { formName, onSubmit: handleSumbit } = this.props
     const initialValues = {
       initialValues: {},
     }
 
-    return <BaseForm form="createPost" onSave={handleSave} {...initialValues} />
+    return <BaseForm form={formName} onSave={handleSumbit} {...initialValues} />
   }
 }
 
 Create.propTypes = propTypes
-export default blogManager(Create)
+export default createHandleCreateSubmit(Create)

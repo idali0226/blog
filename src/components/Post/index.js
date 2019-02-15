@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import { Button, Grid } from 'semantic-ui-react'
 import { Link, withRouter } from 'react-router-dom'
 
-import { blogManager } from '../../higherOrderComponents'
+import { createHandleSearch } from '../../higherOrderComponents'
 import {
   getMaxPostId,
   getMinPostId,
@@ -65,7 +65,7 @@ class Post extends Component {
     return (
       <Grid>
         <Grid.Column width={16}>
-          <BlogItem enableEdit isAdmin={isAdmin} post={post} />
+          <BlogItem enableEdit={isAdmin} isAdmin={isAdmin} post={post} />
         </Grid.Column>
         <Grid.Column width={16}>
           <Button
@@ -100,4 +100,8 @@ class Post extends Component {
 
 Post.propTypes = propTypes
 Post.defaultProps = defaultProps
-export default compose(blogManager, withRouter, connect(mapStateToProps))(Post)
+export default compose(
+  createHandleSearch,
+  withRouter,
+  connect(mapStateToProps)
+)(Post)

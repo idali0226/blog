@@ -1,3 +1,5 @@
-import blogManager from './blogManager'
-
-export { blogManager }
+// export { default as blogManager } from './blogManager'
+export { default as createHandleCreateSubmit } from './createHandleCreateSubmit'
+export { default as createHandleEditSubmit } from './createHandleEditSubmit'
+export { default as createHandleSearch } from './createHandleSearch'
+// export { default as createHandleUndoChanges } from './createHandleUndoChanges'

@@ -3,7 +3,7 @@ import { Create } from '../../../components/'
 
 class CreateView extends Component {
   render() {
-    return <Create header="Create post" isAdmin />
+    return <Create formName="createPost" header="Create post" isAdmin />
   }
 }
 

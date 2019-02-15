@@ -6,7 +6,6 @@ import { Button, Grid } from 'semantic-ui-react'
 import { CheckboxInput, TextArea, TextInput } from './Fields'
 
 const propTypes = {
-  handleSubmit: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   pristine: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
@@ -19,7 +18,6 @@ const required = value => (value ? undefined : 'Required')
 class BaseForm extends Component {
   render() {
     const {
-      handleSubmit,
       onSave: handleSave,
       pristine,
       reset,
@@ -27,7 +25,7 @@ class BaseForm extends Component {
       valid,
     } = this.props
     return (
-      <form onSubmit={handleSubmit(val => handleSave(val))}>
+      <form onSubmit={handleSave}>
         <Grid
           container
           style={{

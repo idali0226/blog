@@ -5,7 +5,7 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 
 import BaseForm from './BaseForm'
-import { blogManager } from '../../higherOrderComponents'
+import { createHandleEditSubmit } from '../../higherOrderComponents'
 import { getPostBySlug } from '../../selectors'
 
 const mapStateToProps = (state, ownProps) => {
@@ -16,8 +16,9 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const propTypes = {
+  formName: PropTypes.string.isRequired,
   isAdmin: PropTypes.bool,
-  onSave: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
   post: PropTypes.shape({
     author: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
@@ -33,23 +34,19 @@ const defaultProps = {
 
 class Edit extends Component {
   render() {
-    const { onSave: handleSave, post } = this.props
+    const { formName, onSubmit: handleSumbit, post } = this.props
 
     const initialValues = {
       initialValues: post,
     }
-
-    return (
-      <BaseForm
-        form="editPost"
-        onSave={handleSave}
-        post={post}
-        {...initialValues}
-      />
-    )
+    return <BaseForm form={formName} onSave={handleSumbit} {...initialValues} />
   }
 }
 
 Edit.propTypes = propTypes
 Edit.defaultProps = defaultProps
-export default compose(blogManager, withRouter, connect(mapStateToProps))(Edit)
+export default compose(
+  createHandleEditSubmit,
+  withRouter,
+  connect(mapStateToProps)
+)(Edit)
