@@ -1,5 +1,6 @@
-// export { default as blogManager } from './blogManager'
+import createPropsFilter from './createPropsFilter'
+
 export { default as createHandleCreateSubmit } from './createHandleCreateSubmit'
 export { default as createHandleEditSubmit } from './createHandleEditSubmit'
 export { default as createHandleSearch } from './createHandleSearch'
-// export { default as createHandleUndoChanges } from './createHandleUndoChanges'
+export default createPropsFilter

@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import { compose } from 'redux'
 
 import BaseForm from './BaseForm'
-import { createHandleCreateSubmit } from '../../higherOrderComponents'
+import createPropsFilter, {
+  createHandleCreateSubmit,
+} from '../../higherOrderComponents'
 
 const propTypes = {
   formName: PropTypes.string.isRequired,
@@ -21,4 +24,10 @@ class Create extends Component {
 }
 
 Create.propTypes = propTypes
-export default createHandleCreateSubmit(Create)
+
+export default compose(
+  createPropsFilter({
+    include: ['formName', 'header'],
+  }),
+  createHandleCreateSubmit
+)(Create)

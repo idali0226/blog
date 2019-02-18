@@ -5,19 +5,20 @@ import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
 
 import BaseForm from './BaseForm'
-import { createHandleEditSubmit } from '../../higherOrderComponents'
+import createPropsFilter, {
+  createHandleEditSubmit,
+} from '../../higherOrderComponents'
 import { getPostBySlug } from '../../selectors'
 
 const mapStateToProps = (state, ownProps) => {
-  const { isAdmin, match: { params: { slug } } } = ownProps
+  const { match: { params: { slug } } } = ownProps
   return {
-    post: getPostBySlug(state, isAdmin, slug),
+    post: getPostBySlug(state, true, slug),
   }
 }
 
 const propTypes = {
   formName: PropTypes.string.isRequired,
-  isAdmin: PropTypes.bool,
   onSubmit: PropTypes.func.isRequired,
   post: PropTypes.shape({
     author: PropTypes.string.isRequired,
@@ -28,7 +29,6 @@ const propTypes = {
 }
 
 const defaultProps = {
-  isAdmin: true,
   post: {},
 }
 
@@ -46,6 +46,10 @@ class Edit extends Component {
 Edit.propTypes = propTypes
 Edit.defaultProps = defaultProps
 export default compose(
+  createPropsFilter({
+    exclude: ['header'],
+    include: ['formName', 'header'],
+  }),
   createHandleEditSubmit,
   withRouter,
   connect(mapStateToProps)
