@@ -4,7 +4,7 @@ import { Edit } from '../../../components/'
 
 class EditView extends Component {
   render() {
-    return <Edit formName="editPost" header="Edit post" isAdmin />
+    return <Edit formName="editPost" header="Edit post" />
   }
 }
 

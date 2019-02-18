@@ -23,6 +23,7 @@ const mapDispatchToProps = {
 }
 
 const propTypes = {
+  authenticated: PropTypes.bool,
   createPost: PropTypes.func.isRequired,
   header: PropTypes.string,
   push: PropTypes.func.isRequired,
@@ -31,6 +32,7 @@ const propTypes = {
 }
 
 const defaultProps = {
+  authenticated: true,
   header: undefined,
   user: undefined,
   values: undefined,
